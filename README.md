@@ -1,14 +1,15 @@
-# Welcome to your CDK TypeScript project
+# Stacksets and NodejsFunction assets
 
-This is a blank project for CDK development with TypeScript.
+This is an example application to deploy a NodejsFunction using a Stackset. When running it with
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+```shell
+npm run cdk list
+```
 
-## Useful commands
+it fails with
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
+```text
+Error: Cannot find asset at /PROJECT_ROOT_PATH/cdk.out/PROJECT_ROOT_PATH
+```
+
+where the `PROJECT_ROOT_PATH` should not be appended to the path.
