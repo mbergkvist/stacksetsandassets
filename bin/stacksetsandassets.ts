@@ -1,6 +1,8 @@
 import * as cdk from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import { PythonFunction } from '@aws-cdk/aws-lambda-python-alpha';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import {
   Capability,
@@ -11,13 +13,21 @@ import {
   StackSetTemplate,
 } from 'cdk-stacksets';
 import { Construct } from 'constructs';
-import path = require('path');
 
 export class MyStackSetStack extends StackSetStack {
   constructor(scope: Construct, id: string, props: StackSetStackProps = {}) {
     super(scope, id, props);
 
-    new NodejsFunction(this, 'MyNodejsFunction');
+    // Uncomment this for the "local path error" with NodejsFunction
+    // new NodejsFunction(this, 'MyNodejsFunction', {
+    //   entry: './src/lambdas/MyNodejsFunction.ts',
+    // });
+
+    // Uncomment this for the "S3 key mismatch error" with PythonFunction
+    // new PythonFunction(this, 'onEventHandlerFunction', {
+    //   entry: './src/lambdas/iamPasswordPolicy',
+    //   runtime: lambda.Runtime.PYTHON_3_11,
+    // });
   }
 }
 
@@ -26,14 +36,14 @@ export class MyStack extends cdk.Stack {
     super(scope, id, props);
 
     const bucket = new s3.Bucket(this, 'Assets', {
-      bucketName: 'mbergkvist-cdkstacket-asset-bucket-123',
+      bucketName: 'cdkstacket-asset-bucket-123',
     });
 
     bucket.addToResourcePolicy(
       new iam.PolicyStatement({
         actions: ['s3:Get*', 's3:List*'],
         resources: [bucket.arnForObjects('*'), bucket.bucketArn],
-        principals: [new iam.OrganizationPrincipal('o-123abc')],
+        principals: [new iam.OrganizationPrincipal('o-abcd1234')],
       }),
     );
 
