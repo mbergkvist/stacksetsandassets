@@ -16,7 +16,7 @@
     "@types/node": "^20.9.0",
     "@types/prettier": "^2.7.3",
     "aws-cdk": "^2.106.0",
-    "cdk-stacksets": "^0.0.149",
+    "cdk-stacksets": "file:../../src/cdklabs/cdk-stacksets/cdk-stacksets-v0.0.0.tgz",
     "jest": "^29.7.0",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",

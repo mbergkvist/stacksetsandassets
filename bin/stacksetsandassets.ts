@@ -19,9 +19,9 @@ export class MyStackSetStack extends StackSetStack {
     super(scope, id, props);
 
     // Uncomment this for the "local path error" with NodejsFunction
-    // new NodejsFunction(this, 'MyNodejsFunction', {
-    //   entry: './src/lambdas/MyNodejsFunction.ts',
-    // });
+    new NodejsFunction(this, 'MyNodejsFunction', {
+      entry: './src/lambdas/MyNodejsFunction.ts',
+    });
 
     // Uncomment this for the "S3 key mismatch error" with PythonFunction
     // new PythonFunction(this, 'onEventHandlerFunction', {
@@ -48,7 +48,8 @@ export class MyStack extends cdk.Stack {
     );
 
     const stackSetStack = new MyStackSetStack(this, 'MyStackSetStack', {
-      assetBucket: bucket,
+      assetBucketPrefix: 'an-asset-bucket-prefix',
+      assetBuckets: [bucket],
     });
 
     new StackSet(this, 'StackSet', {
